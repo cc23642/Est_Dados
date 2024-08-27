@@ -185,7 +185,8 @@ public class ListaEncadeadaSimplesDesordenada<X> extends NoSimples<X> {
             atual = atual.getProx();
         }
         //vai até a posição
-        if(atual==null) throw new Exception("ponteiro nulo");
+        if(atual==null) return null;
+        //throw new Exception("ponteiro nulo");
         else{
             X infoAtual = new Clonador<X>().clone(atual.getInfo());
             return infoAtual;
@@ -259,6 +260,13 @@ public class ListaEncadeadaSimplesDesordenada<X> extends NoSimples<X> {
             atual = proximo;
         }
         this.primeiro = anterior;
+    }
+
+
+
+    public int compareTo(ListaEncadeadaSimplesDesordenada<Arestas<X>> arestas) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
     }
     
 
