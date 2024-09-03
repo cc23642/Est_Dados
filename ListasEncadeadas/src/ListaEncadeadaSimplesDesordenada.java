@@ -2,6 +2,10 @@ public class ListaEncadeadaSimplesDesordenada<X> extends NoSimples<X> {
 
     private NoSimples<X> primeiro =null;
 
+    public NoSimples<X> getPrimeiroNo(){
+        return this.primeiro;
+    }
+
     public void guadeNoInicio(X i)throws Exception{
         if (i==null)throw new Exception("informação ausente");
         this.primeiro = new NoSimples<X> (i, this.primeiro);

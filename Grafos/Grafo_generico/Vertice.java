@@ -2,18 +2,31 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Vertice<X extends Comparable<X>> implements Cloneable {
-    private X info;
 
-    public Vertice(X infX)throws Exception{
-        if(infX==null)throw new Exception("não faz sentido ter um vértice nulo.");
-        this.info = infX;
+    private X info;
+    private ListaEncadeadaDuplaOrdenada arestas;
+
+    public Vertice(X info){
+        this.info = info;
+        this.arestas =null;
     }
 
-    public Vertice(Vertice v)throws Exception{
-        if(v==null)throw new Exception("não faz sentido ter um vértice nulo.");
-        if(v instanceof Cloneable){
-            this.info = (X) v.meuCloneDeX(v.getInfo());
+    public Vertice(X info,ListaEncadeadaDuplaOrdenada<Aresta> l_arestas) throws Exception{
+        this.info = info;
+        if(l_arestas!=null){
+            NoDuplo<Aresta> a_atual = l_arestas.getPrimeiroNo();
+            while (a_atual.getProx()!=null) {
+                this.arestas.inserir(a_atual.getInfo());
+                a_atual = a_atual.getProx();
+            }
         }
+        else this.arestas =null;
+        
+    }
+    
+
+    public ListaEncadeadaDuplaOrdenada<Aresta> getArestas(){
+        return this.arestas;
     }
 
     public X getInfo(){return this.info;}
@@ -45,12 +58,12 @@ public class Vertice<X extends Comparable<X>> implements Cloneable {
         return ret;
     }
 
-    @override
+    @Override
     public String toString(){
         return "info :"+this.info.toString();
     }
 
-    @override
+    @Override
     public boolean equals(Object obj) {
         if(obj == null) return false;
         if(obj.getClass() == this.getClass()){
@@ -60,7 +73,7 @@ public class Vertice<X extends Comparable<X>> implements Cloneable {
         return false;
     }
 
-    @override
+    @Override
     public int hashCode(){
         int hash = 2;
         hash = 17*hash+(this.info == null? 0 : this.info.hashCode());

@@ -47,6 +47,4 @@ public class Aresta<X extends Comparable<X>> implements Cloneable {
 
         return ret;
     }
-
-    p
 }
