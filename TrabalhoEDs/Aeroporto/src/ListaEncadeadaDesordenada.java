@@ -1,9 +1,13 @@
-public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
-    
+public class ListaEncadeadaDesordenada<X> {
+
     private NoSimples<X> primeiro = null;
 
-    public ListaEncadeadaOrdenada(){
+    public ListaEncadeadaDesordenada() {
         this.primeiro = null;
+    }
+
+    public ListaEncadeadaDesordenada(NoSimples<X> primeiro) {
+        this.primeiro = primeiro;
     }
 
     public boolean tem(X i) {
@@ -33,8 +37,8 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
         if (obj == null) return false;
         if (obj == this) return true;
         if (obj.getClass() != this.getClass()) return false;
-        
-        ListaEncadeadaOrdenada<X> listaObj = (ListaEncadeadaOrdenada<X>) obj;
+
+        ListaEncadeadaDesordenada<X> listaObj = (ListaEncadeadaDesordenada<X>) obj;
         NoSimples<X> atualDoThis = this.primeiro;
         NoSimples<X> atualdoObj = listaObj.primeiro;
 
@@ -57,7 +61,7 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
         return ret;
     }
 
-    public ListaEncadeadaOrdenada(ListaEncadeadaOrdenada<X> modelo) throws Exception {
+    public ListaEncadeadaDesordenada(ListaEncadeadaDesordenada<X> modelo) throws Exception {
         if (modelo == null) throw new Exception("modelo nulo");
         if (modelo.primeiro == null) {
             this.primeiro = null;
@@ -76,7 +80,7 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
 
     public Object clone() {
         try {
-            return new ListaEncadeadaOrdenada<X>(this);
+            return new ListaEncadeadaDesordenada<X>(this);
         } catch (Exception e) {
             return null;
         }
@@ -119,7 +123,7 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
         if (posicao < 0) throw new Exception("Posição inválida");
         NoSimples<X> atual = this.primeiro;
         int index = 0;
-        
+
         while (atual != null && index < posicao) {
             atual = atual.getProx();
             index++;
@@ -144,7 +148,7 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
         }
     }
 
-    private int tamanho() {
+    public int tamanho() {
         int count = 0;
         NoSimples<X> atual = this.primeiro;
         while (atual != null) {
@@ -158,7 +162,7 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
         NoSimples<X> anterior = null;
         NoSimples<X> atual = this.primeiro;
         NoSimples<X> proximo;
-        
+
         while (atual != null) {
             proximo = atual.getProx();
             atual.setProx(anterior);
@@ -168,21 +172,19 @@ public class ListaEncadeadaOrdenada<X extends Comparable<X>> {
         this.primeiro = anterior;
     }
 
+    // Método de inserção sem ordenar
     public void inserir(X info) throws Exception {
         if (info == null) throw new Exception("informação ausente");
-        
-        NoSimples<X> novoNo = new NoSimples<>(info);
-        if (primeiro == null || info.compareTo(primeiro.getInfo()) < 0) {
-            novoNo.setProx(primeiro);
-            primeiro = novoNo;
-            return;
-        }
 
-        NoSimples<X> atual = primeiro;
-        while (atual.getProx() != null && info.compareTo(atual.getProx().getInfo()) > 0) {
-            atual = atual.getProx();
+        NoSimples<X> novoNo = new NoSimples<>(info);
+        if (primeiro == null) {
+            primeiro = novoNo;
+        } else {
+            NoSimples<X> atual = primeiro;
+            while (atual.getProx() != null) {
+                atual = atual.getProx();
+            }
+            atual.setProx(novoNo);
         }
-        novoNo.setProx(atual.getProx());
-        atual.setProx(novoNo);
     }
 }
