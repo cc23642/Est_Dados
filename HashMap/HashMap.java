@@ -66,6 +66,12 @@ public class HashMap<K,V>{
     private float taxDispMin = 0;
     private float taxDispMax = 0;
 
+    public HashMap(int tamanhoInicial, float taxMax, float taxMin){
+        this.taxDispMax = taxMax;
+        this.taxDispMin = taxMin;
+        this.vetor = new ListaEncadeadaSimplesDesordenada[tamanhoInicial];
+    }
+
     //getters
     public ListaEncadeadaSimplesDesordenada<Elemento>[] getVetor(){ return this.vetor; }
     public int getQtdElementos(){ return this.qtdElementos; }
@@ -80,4 +86,61 @@ public class HashMap<K,V>{
     public void setTamanho(int value) throws Exception{this.tamanho = value;}
     public void setDespMax(float newMax) throws Exception{this.taxDispMax = newMax;}
     public void setDespMin(float newMin) throws Exception{this.taxDispMin = newMin;}
+
+    @Override
+    public int hashCode() {
+        int ret = 2;
+        ret+= 17 * qtdElementos;
+        ret+= 17 * qtdOcupacao;
+        ret+= 17 * tamanho;
+        ret+= 17 * taxDispMax;
+        ret+= 17 * taxDispMin;
+        ret+= 17 * vetor.hashCode();
+
+        return ret;
+
+    }
+
+    public boolean equals(HashMap hashObj){
+        if(this.qtdElementos ==  hashObj.getQtdElementos()){
+            if(this.qtdOcupacao == hashObj.getQtdOcupacao()){
+                if(this.tamanho == hashObj.getTamanho()){
+                    if(this.taxDispMax == hashObj.getDespMax()){
+                        if(this.taxDispMin == hashObj.getDespMin()){
+                            if(vetor.equals(hashObj.getVetor())){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public String toString(){
+        String ret = "[";
+        for(int i=0; i<tamanho;i++){
+            ret += vetor[i].toString()+ ", ";
+        }
+        return ret+"]";
+    }
+
+    //implementando
+    public void inserirUmItem(K chave, V valor){
+        int posicao = 0;
+        Elemento newElemento =  Elemento(chave, valor);
+        int hChave = chave.hashCode();
+        posicao =  hChave%tamanho;
+        vetor[hash()]
+    }
+
+    public int hash(Elemento e)throws Exception{
+        int ret = 2;
+        if(e==null){throw new Exception("objeto nulo");}
+
+        return ret;
+    }
+
+    
 }
