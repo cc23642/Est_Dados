@@ -4,28 +4,26 @@ import java.lang.reflect.Method;
 public class Vertice<X extends Comparable<X>> implements Cloneable {
 
     private X info;
-    private ListaEncadeadaDuplaOrdenada arestas;
+    private ListaEncadeadaDuplaOrdenada<Aresta<X>> arestas;
 
     public Vertice(X info){
         this.info = info;
-        this.arestas =null;
+        this.arestas = new ListaEncadeadaDuplaOrdenada<Aresta<X>>();
     }
 
-    public Vertice(X info,ListaEncadeadaDuplaOrdenada<Aresta> l_arestas) throws Exception{
+    public Vertice(X info,ListaEncadeadaDuplaOrdenada<Aresta<X>> l_arestas) throws Exception{
         this.info = info;
         if(l_arestas!=null){
-            NoDuplo<Aresta> a_atual = l_arestas.getPrimeiroNo();
+            NoDuplo<Aresta<X>> a_atual = l_arestas.getPrimeiroNo();
             while (a_atual.getProx()!=null) {
                 this.arestas.inserir(a_atual.getInfo());
                 a_atual = a_atual.getProx();
             }
         }
         else this.arestas =null;
-        
     }
     
-
-    public ListaEncadeadaDuplaOrdenada<Aresta> getArestas(){
+    public ListaEncadeadaDuplaOrdenada<Aresta<X>> getArestas(){
         return this.arestas;
     }
 

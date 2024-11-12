@@ -1,4 +1,4 @@
-public class Nodo<X> implements Cloneable, Comparable<X> {
+public class Nodo<X extends Comparable<X>> implements Cloneable {
     private X info;
     private Nodo<X> esq;
     private Nodo<X> dir;
@@ -17,51 +17,59 @@ public class Nodo<X> implements Cloneable, Comparable<X> {
     }
 
     public X getInfo()
-    {   
-        var ret;
-        if(this.info instanceof Cloneable){
-            ret = (X)clone(this.info);
-        }else { ret = this.info; }
-        return ret;
+    {
+        return this.info;
     }
 
-    public X getEsquerdo()
+    public Nodo<X> getEsquerdo()
     {   
-        var ret;
-        if(this.esq instanceof Cloneable){
-            ret = (X)super.clone(this.esq);
-        }else { ret = this.esq; }
-        return ret;
+        return this.esq;
     }
 
-    public X getDireito()
+    public Nodo<X> getDireito()
     {   
-        var ret;
-        if(this.dir instanceof Cloneable){
-            ret = (X)super.clone(this.dir);
-        }else { ret = this.dir; }
-        return ret;
+        return this.dir;
     }
 
     public void setInfo(X inf)
     {
         if(inf instanceof Cloneable){
-            this.info = (X)super.clone(inf);
+            this.info = inf;
         }else { this.info = inf; }
     }
 
     public void setEsquerdo(Nodo<X> inf)
     {
         if(inf instanceof Cloneable){
-            this.esq = (X)super.clone(inf);
+            this.esq = inf.clone();
         }else { this.esq = inf; }
     }
     public void setDireito(Nodo<X> inf)
     {
         if(inf instanceof Cloneable){
-            this.dir = (X)super.clone(inf);
+            this.dir = inf.clone();
         }else { this.dir = inf; }
     }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Nodo<X> clone() {
+        Nodo<X> clonedNode;
+        try {
+            clonedNode = (Nodo<X>) super.clone();
+            if (this.esq != null) {
+                clonedNode.esq = this.esq.clone();
+            }
+            if (this.dir != null) {
+                clonedNode.dir = this.dir.clone();
+            }
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Cloning not supported", e);
+        }
+        return clonedNode;
+    }
+
 
 
     // public MinhaClasse shallowCopy() throws CloneNotSupportedException {
@@ -77,10 +85,9 @@ public class Nodo<X> implements Cloneable, Comparable<X> {
 
     @Override
     public String toString() {
-        return "Nó: "+this.info.getInfo();
+        return "Nó: "+this.info.toString();
     }
 
-    @Override
     public boolean equals(Nodo<X> obj)throws Exception {
         if(obj==null)throw new Exception("error in value, this value is NULL");
         if(obj.getClass()!=this.getClass()){   return false;    }
@@ -90,8 +97,11 @@ public class Nodo<X> implements Cloneable, Comparable<X> {
 
     @Override
     public int hashCode() {
-        //TODO
-        return super.hashCode();
+        int ret = 2;
+        ret += this.dir.hashCode()*17;
+        ret += this.esq.hashCode()*17;
+        ret += this.info.hashCode()*17;
+        return ret;
     }
 
 }
