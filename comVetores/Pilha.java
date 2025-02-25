@@ -25,8 +25,12 @@ public class Pilha <X> implements Cloneable{
             if(isCheia()){
                 redimencioneSe(); 
             }
-            X itemclonado = clonador.clone(item);
-            this.vetor[this.topo] = item;
+            try {
+                X itemclonado = clonador.clone(item);
+                this.vetor[this.topo] = itemclonado;
+            } catch (Exception e) {
+                this.vetor[this.topo] = item;
+            }
             this.topo++;
         }else throw new Exception("não e possivel inserir um valor nulo");
     }

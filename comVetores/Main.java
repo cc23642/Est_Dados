@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[]args){
         Fila fila = new Fila<Integer>();
 
-        for(int i=0;i<=1000000;i++){
+        for(int i=0;i<=10;i++){
             try {
                 fila.incluaUmItem(i);
             } catch (Exception e) {
@@ -10,7 +10,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
-        for(int i=0;i<1000000;i++){
+        for(int i=0;i<10;i++){
             try {
                 fila.removaUmItem();
             } catch (Exception e) {

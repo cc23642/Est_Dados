@@ -24,8 +24,13 @@ public class Fila<X> implements Cloneable {
             if(isCheia()){
                 redimencioneSe(); 
             }
-            X itemclonado = clonador.clone(item);
-            this.vetor[this.fim] = itemclonado;
+            try {
+                X itemclonado = clonador.clone(item);
+                this.vetor[this.fim] = itemclonado;
+                
+            } catch (Exception e) {
+                this.vetor[this.fim] = item;
+            }
             this.fim++;
         }else throw new Exception("não e possivel inserir um valor nulo");
     }
@@ -44,8 +49,13 @@ public class Fila<X> implements Cloneable {
         if(isVazia()) {redimencioneSe();}
         for(int i =0;i<fim;i++){
             vetor[i] = vetor[i+1];
-        }vetor[fim-1] = null;
-        this.fim--;
+        }
+        if(fim<1){
+            vetor[fim] = null;
+        }else{vetor[fim-1] = null;
+            this.fim--;
+        }
+        
     }
 
     public boolean isCheia(){
