@@ -3,7 +3,7 @@ public class Pilha <X> implements Cloneable{
     private int topo;
 
 
-    Clonador<X> clonador;
+    Clonador<X> clonador = new Clonador<X>();
 
     public Pilha(){
         this.vetor = new Object[10];

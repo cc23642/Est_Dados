@@ -2,7 +2,7 @@ public class Fila<X> implements Cloneable {
     private Object[] vetor;
     private int fim;
 
-    Clonador<X> clonador;
+    Clonador<X> clonador = new Clonador<X>();
 
     public Fila(){
         this.vetor = new Object[10];
