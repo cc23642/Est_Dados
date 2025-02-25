@@ -2,6 +2,8 @@ public class Fila<X> implements Cloneable {
     private Object[] vetor;
     private int fim;
 
+    Clonador<X> clonador;
+
     public Fila(){
         this.vetor = new Object[10];
         this.fim = 0;
@@ -22,15 +24,15 @@ public class Fila<X> implements Cloneable {
             if(isCheia()){
                 redimencioneSe(); 
             }
-            //X itemclonado = cloneItem(item);
-            this.vetor[this.fim] = item;
+            X itemclonado = clonador.clone(item);
+            this.vetor[this.fim] = itemclonado;
             this.fim++;
         }else throw new Exception("não e possivel inserir um valor nulo");
     }
 
     public X recupereUmItem() throws Exception{
         try{
-            X itemclone = cloneItem((X)vetor[0]);
+            X itemclone = clonador.clone((X)vetor[0]);
             return itemclone;
             
         }catch(ClassCastException e){

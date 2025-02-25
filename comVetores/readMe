@@ -1,0 +1,6 @@
+desenvolvido por : Murilo dos Santos Cela - RA: 23642
+
+Fila: estrutura de ordenação baseada no conceito FIFO (first in first out)
+Pilha: estrutura de ordenação de dados baseada em LIFO (last in first out)
+Main: classe principal, compila as outras classes.
+Clonador: classe auxiliar para a clonagem de objetos genéricos.
