@@ -115,7 +115,7 @@ public class Filaparada<X> {
         }else{
             this.elementos[inicio] = null;
             this.inicio++;
-            this.quantidade--;
+            this.quantidade--; 
         }
     }
 
