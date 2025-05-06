@@ -1,4 +1,4 @@
-public class Clonador<X> {
+public class Clonador {
     
     @SuppressWarnings("unchecked")
     public X clone(X objeto) throws CloneNotSupportedException {
